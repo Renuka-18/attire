@@ -19,7 +19,7 @@ def  home(request):
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
-    return render(request,'app/home.html',locals())
+    return render(request,'app/index.html',locals())
 
 @login_required
 def about(request):
@@ -261,7 +261,7 @@ def payment_done(request):
         orders_placed =  OrdersPlaced(id=cust_id,user=user,customer=customer,product=c.product,quantity=c.quantity,payment=payment.razorpay_payment_id)
         orders_placed.save()
         c.delete()
-    return render(request,'app/home.html', locals())  
+    return render(request,'app/index.html', locals())  
 
 
 @login_required

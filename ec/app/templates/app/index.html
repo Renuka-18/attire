@@ -1,110 +1,90 @@
-<!DOCTYTPE html>
-{% load static %}
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,intial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}" />
-        <link rel="stylesheet" href="{% static   'app/css/style.css' %}" />
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% extends 'app/base.html' %}
+{% load static%}
+{% block title %} Home {% endblock title%}
+
+{% block banner-slider %}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item  active ">
+        <img src="{% static 'app/images/banner/banner1.jpg' %}" class="d-block w-100" alt="bannerimage" height="300" width="200">
+      </div>
+      <div class="carousel-item ">
+        <img src="{% static 'app/images/banner/banner2.jpg' %}" class="d-block w-100" alt="bannerimage"  height="300" width="200">
+      </div>
+      <div class="carousel-item ">
+        <img src="{% static 'app/images/banner/banner3.jpeg' %}" class="d-block w-100" alt="bannerimage"  height="300" width="200" >
+      </div>
+      
+    </div>
+  </div> 
+{% endblock banner-slider %}
+{% block infor %}
+<div class="container">
+    <div class="row bg-success text-center p-5 text-white border-bottom shadow">
+        <h1>Products</h1>
+        <small class="fs-5" > <b>Attire</b> provides a wide range of Women's Fashion in both Trending and Ethnic
+            categories.
+
+            It consists of all wide range of Cloths varities,types,patterns,colors which is a Simply 
+            one Step Fashion Store for Women.</small>
+    </div>
+
+</div>
+{% endblock infor %}
 
 
-        <title>Attire | {%block title%}{%endblock title%}</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#"></a>
-              <img src="{% static "app/images/attire-logo.png"%}"  width="100" height="50"/>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  {% if request.user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Women's Fashion
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'category' 'WC' %}">Women's Clothing</a></li>
-                      <li><a class="dropdown-item" href="{% url 'category' 'WA' %}">Accessories</a></li>
-                      <li><a class="dropdown-item" href="{% url 'category' 'SH' %}">Shoes</a></li> 
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'about' %}">About Us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
-                  </li>
-                </ul>
-                <form class="d-flex" role="search" action="/search">
-                  <input class="form-control me-2" type="search" placeholder="Search"  name="search" aria-label="Search">
-                  <button class="btn btn-outline-dark" type="submit">Search</button>
-                </form>
-              </div>
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              
-              <li class="nav-item dropdown mx-2">
-                <a class="nav-link dropdown-toggle text-white" href="#"
-                id="profileDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">{{request.user}}</a>
-                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                  <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                  <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
-                  <li><a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a></li>
-                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                 </ul> 
-              </li>
-              <li class="nav-item mx-2">
-                <a href="{% url 'showcart' %}" class="nav-link text-white"><span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span>Cart</a>
-              </li>
-              <li class="nav-item mx-2">
-                <a href="{% url 'showwishlist' %}" class="nav-link text-white"><span class="badge bg-danger">{% if wishitem > 0 %} {{wishitem}} {% endif %} </span>
-                <i class="fa fa-heart"></i></a>
-              </li>
-              {% else %}
-              <li class="nav-item mx-2">
-                <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
-              </li>
-              <li class="nav-item mx-2">
-                <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
-              </li>
-              {% endif %}
-            </ul>
+{% block main-content %}
+<div class="container">
+    <h2 class=" text-center">Fashion</h2>
+    <br><br>
+
+    <div class="row container">
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp"
+        data-wow-duration="1s" data-wow-delay="0.6s" 
+        style="animation-duration: 1s; animation-delay:0.6s;
+        animation-name:none;">
+           <div class="goodnesssec buttermilk smbg">
+                <a href="{% url 'category' 'WC' %}">
+                   <div class="goodnessseccont text-center">
+                    <img src="{% static 'app/images/cloth1.png' %}" class="img-responsive center-block" alt="">
+                    <p class="mlkpro">Fashion & Ethnic Wear</p>
+                   </div>
+                </a>
             </div>
-          </nav>
-
-          {% block banner-slider %}{% endblock banner-slider %}
-          {% block infor %}{% endblock infor %}
-          {% block main-content %}{% endblock main-content %}
-          {% block payment-gateway %}{% endblock payment-gateway %}
-          
-
-          <footer class="container-fluid fixed-bottom bg-success text-center p-2 mt-5">
-            {% comment %} <a href="{% url 'contact' %}" class = "nav-link text-white">About</a> {% endcomment %}
-            
-            Copyright : 2023 | Developed by - attireboutique
-          </footer>
+       </div>
 
 
-
-
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-       
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+       <div class="col-md-4 col-sm-4 mi-go wow fadeInUp"
+        data-wow-duration="1s" data-wow-delay="0.6s" 
+        style="animation-duration: 1s; animation-delay:0.6s;
+        animation-name:none;">
+             <div class="goodnesssec buttermilk curdbgpro">
+                <a href="{% url 'category' 'WA' %}">
+                    <div class="goodnessseccont text-center">
+                    <img src="{% static 'app/images/accessories.jpg' %}" class="img-responsive center-block" alt="">
+                    <p class="mlkpro">Fashionable Accessories</p>
+                    </div>
+                </a>
+              </div>
+       </div> 
+  
     
-        <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-        <script src="{%static 'app/js/owl.carousel.min.js'%}"></script>
-        <script src="{%static 'app/js/all.min.js'%}"></script>
-        <script src="{%static 'app/js/myscript.js'%}"></script>
-    </body>
-    </html>
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp"
+        data-wow-duration="1s" data-wow-delay="0.6s" 
+        style="animation-duration: 1s; animation-delay:0.6s;
+        animation-name:none;">
+            <div class="goodnesssec buttermilk buttermilk">
+                <a href="{% url 'category' 'SH' %}">
+                   <div class="goodnessseccont text-center">
+                    <img src="{% static 'app/images/shoes1.jpg' %}" class="img-responsive center-block" alt="">
+                    <p class="mlkpro">Fashionable Shoes</p>
+                   </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock main-content %}
